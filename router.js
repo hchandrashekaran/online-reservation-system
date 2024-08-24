@@ -5,6 +5,26 @@ const router = express.Router()
 
 const Event = require('./models/Event')
 
+/**
+ * @swagger
+ *   /events:
+ *     post:
+ *       summary: Create an event with given number of seats
+ *       requestBody:
+ *         required: true
+ *         content:
+ *           application/json:
+ *             schema:
+ *               $ref: '#/components/schemas/Event'
+ *       responses:
+ *         201:
+ *           description: New event created
+ *           content:
+ *             application/json:
+ *               schema:
+ *                 $ref: '#/components/schemas/Event'
+ */
+
 // Create an event with given number of seats
 router.post('/events',async (req,res) =>{
    
@@ -32,6 +52,27 @@ router.post('/events',async (req,res) =>{
 
 })
 
+/**
+ * @swagger
+ *   /events/{eventId}/seats:
+ *     get:
+ *       summary: Get all seats of an event
+ *       parameters:
+ *         - in: path
+ *           name: eventId
+ *           schema:
+ *             type: string
+ *           required: true
+ *           description: event id
+ *       responses:
+ *         200:
+ *           description: Event seats
+ *           content:
+ *             application/json:
+ *               schema:
+ *                 $ref: '#/components/schemas/Event'
+ */
+
 // Get number of seats per event
 router.get('/events/:eventId/seats', async (req,res) => {
     const { eventId } = req.params
@@ -46,6 +87,33 @@ router.get('/events/:eventId/seats', async (req,res) => {
         res.status(500).send("Error fetching seats")
     }
 })
+
+/**
+* @swagger
+*   /events/{eventId}/seats/{seatId}/hold:
+*     post:
+*       summary: Hold a seat in an event
+*       parameters:
+*         - in: path
+*           name: eventId
+*           schema:
+*             type: string
+*           required: true
+*           description: event id
+*         - in: path
+*           name: seatId
+*           schema:
+*             type: integer
+*           required: true
+*           description: seat id
+*       responses:
+*         200:
+*           description: Event seats
+*           content:
+*             application/json:
+*               schema:
+*                 $ref: '#/components/schemas/Event'
+*/
 
 // Hold a seat in an event
 router.post('/events/:eventId/seats/:seatId/hold', async (req,res) => {
@@ -97,6 +165,40 @@ router.post('/events/:eventId/seats/:seatId/hold', async (req,res) => {
 
 })
 
+/**
+* @swagger
+*   /events/{eventId}/seats/{seatId}/reserve:
+*     post:
+*       summary: Reserve an held seat of a event
+*       parameters:
+*         - in: path
+*           name: eventId
+*           schema:
+*             type: string
+*           required: true
+*           description: event id
+*         - in: path
+*           name: seatId
+*           schema:
+*             type: integer
+*           required: true
+*           description: seat id
+*       requestBody:
+*         required: true
+*         content:
+*           application/json:
+*             schema:
+*               $ref: '#/components/schemas/Event'
+*       responses:
+*         200:
+*           description: Event seats
+*           content:
+*             application/json:
+*               schema:
+*                 $ref: '#/components/schemas/Event'
+*/
+
+
 // Reserve an held seat
 router.post('/events/:eventId/seats/:seatId/reserve', async (req,res) => {
     const { eventId, seatId } = req.params;
@@ -130,6 +232,33 @@ router.post('/events/:eventId/seats/:seatId/reserve', async (req,res) => {
         res.status(500).send('Error reserving seat');
     }
 })
+
+/**
+* @swagger
+*   /events/{eventId}/seats/{seatId}/refresh:
+*     post:
+*       summary: Refresh the hold time of a seat in an event
+*       parameters:
+*         - in: path
+*           name: eventId
+*           schema:
+*             type: string
+*           required: true
+*           description: event id
+*         - in: path
+*           name: seatId
+*           schema:
+*             type: integer
+*           required: true
+*           description: seat id
+*       responses:
+*         200:
+*           description: Event seats
+*           content:
+*             application/json:
+*               schema:
+*                 $ref: '#/components/schemas/Event'
+*/
 
 // Endpoint to refresh a hold on a seat
 router.post('/events/:eventId/seats/:seatId/refresh', async (req, res) => {
