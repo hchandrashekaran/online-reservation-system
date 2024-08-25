@@ -2,6 +2,8 @@ const { v4: uuidv4 } = require('uuid');
 
 const Event = require('../models/Event')
 
+// Create event with given number of seats
+// Each event will be indentified with UUID
 const createEvent = async (req,res) => {
     const { totalSeats } = req.body   
 
@@ -26,6 +28,7 @@ const createEvent = async (req,res) => {
 
 }
 
+// Get all seats of an Evenet
 const getEventSeats = async (req,res) => {
     const { eventId } = req.params
 

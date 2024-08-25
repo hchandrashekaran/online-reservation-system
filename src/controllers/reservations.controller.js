@@ -2,6 +2,7 @@ const { v4: uuidv4 } = require('uuid');
 
 const Event = require('../models/Event')
 
+// Hold seats of an event upto a given time
 const holdSeat = async (req,res) => {
     const { eventId,seatId } = req.params
     const userId = uuidv4()
@@ -50,6 +51,7 @@ const holdSeat = async (req,res) => {
     }
 }
 
+// Reserve the held seat
 const reserveSeat = async (req,res) => {
     const { eventId, seatId } = req.params;
     const { userId } = req.body;
@@ -57,9 +59,8 @@ const reserveSeat = async (req,res) => {
 
     try {
         const event = await Event.findOne({ eventId });
-        if (!event) return res.status(404).send('Event not found');
 
-        // const seat = event.seats.filter(seat => seat.seatId == seatId)
+        if (!event) return res.status(404).send('Event not found');        
 
         const seat = event.seats.find(s => s.seatId == seatId);       
         
@@ -83,6 +84,7 @@ const reserveSeat = async (req,res) => {
     }
 }
 
+// Refresh hold time
 const refreshSeat = async (req,res) => {
     const { eventId, seatId } = req.params;
     const { userId } = req.body;
