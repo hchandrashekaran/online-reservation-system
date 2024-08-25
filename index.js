@@ -1,11 +1,14 @@
 const express = require("express")
 const mongoose = require("mongoose")
-const Event = require('./models/Event.js')
-const apiRoute = require('./router.js')
+// const Event = require('./models/Event.js')
+// const apiRoute = require('./router.js')
 const bodyPraser = require('body-parser')
 const swaggerJsdoc = require('swagger-jsdoc')
 const swaggerUi = require('swagger-ui-express')
 const options = require('./swagger.js')
+
+const Events = require('./src/routes/events.js')
+const Reservations = require('./src/routes/reservations.js')
 
 const app = express()
 // app.use(express.json())
@@ -15,7 +18,10 @@ const mongoUri = "mongodb://localhost:27017/eventReservation"
 
 app.use(bodyPraser.json())
 
-app.use('/',apiRoute)
+// app.use('/',apiRoute)
+
+app.use("/api/events",Events)
+app.use("/api/reservations",Reservations)
 
 const specs = swaggerJsdoc(options)
 
