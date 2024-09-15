@@ -19,7 +19,7 @@ The system follows a microservices architecture, where each service is responsib
 ### Create Event
 
 ```http
-POST /events
+POST /api/events
 ```
 
 #### Request
@@ -38,7 +38,7 @@ POST /events
 ### Get Event Seats
 
 ```http
-GET /events/:eventId/seats
+GET /api/events/:eventId/seats
 ```
 
 #### Request
@@ -61,7 +61,7 @@ GET /events/:eventId/seats
 ### Hold event seat
 
 ```http
-POST /events/:eventId/seats/:seatId/hold
+POST /api/reservations/:eventId/seats/:seatId/hold
 ```
 
 #### Request
@@ -82,7 +82,7 @@ POST /events/:eventId/seats/:seatId/hold
 ### Reserve a Seat
 
 ```http
-POST /events/:eventId/seats/:seatId/reserve
+POST /api/reservations/:eventId/seats/:seatId/reserve
 ```
 #### Request
 | Parameter | Type | Description |
@@ -102,7 +102,7 @@ POST /events/:eventId/seats/:seatId/reserve
 ### Referesh reserved seat
 
 ```http
-POST /events/:eventId/seats/:seatId/refresh
+POST /api/reservations/:eventId/seats/:seatId/refresh
 ```
 
 #### Request
@@ -117,7 +117,7 @@ POST /events/:eventId/seats/:seatId/refresh
 
 ```javascript
 {
-    "message": "seat held"
+    "message": "Hold refreshed"
 }
 ```
 

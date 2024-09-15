@@ -4,7 +4,11 @@ const options = {
         info: {
             title: "Online event reservation system",
             version: "1.0.0",
-            description: "The Online Reservation System is designed to manage event seat reservations. It includes services for creating events, listing available seats, holding seats for a limited time, and reserving seats."
+            description: "The Online Reservation System is designed to manage event seat reservations. It includes services for creating events, listing available seats, holding seats for a limited time, and reserving seats.",
+            license: {
+                name: "MIT",
+                url: "https://spdx.org/licenses/MIT.html",
+              },
         },
         servers: [{
             url: "http://localhost:3005"
@@ -39,7 +43,7 @@ const options = {
 
 
     },
-    apis: ["./router.js"]
+    apis: ["./src/routes/*.js"]
 }
 
 module.exports = options
