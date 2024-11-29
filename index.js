@@ -9,10 +9,14 @@ const mongoUri = process.env.MONGO_LOCAL
 
 app.listen(port,async () => {
     try{
-        await mongoose.connect(mongoUri)
+        const database = await mongoose.connect(mongoUri)
+                            .then(() => {
+                                console.log("Database connected")
+                            })
     }
     catch(err){
         console.log(err.message)
     }
-    console.log(`Server listening on port: ${port}`)
+    console.log(`Server listening on http://localhost: ${port}`)
+    console.log(`Swagger docs are available at http://localhost:${port}/api-docs`)
 })

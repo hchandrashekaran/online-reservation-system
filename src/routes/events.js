@@ -1,6 +1,7 @@
 const express = require('express')
 const router = express.Router()
 const events = require('../controllers/events.controller')
+const verifyToken = require('../middleware/authMiddleware')
 
 
 /**
@@ -22,7 +23,10 @@ const events = require('../controllers/events.controller')
  *               schema:
  *                 $ref: '#/components/schemas/Event'
  */
+// router.post("/",verifyToken,events.createEvent);
 router.post("/",events.createEvent);
+
+router.get("/",events.getAllEvents)
 
 /**
  * @swagger
