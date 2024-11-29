@@ -28,7 +28,19 @@ const createEvent = async (req,res) => {
 
 }
 
-// Get all seats of an Evenet
+// Get all Events
+const getAllEvents = async (req,res) => {
+    try {
+        console.log("Inside get all events")
+        const events = await Event.find({"$and":[{ "$expr": { "$lt": [{ "$size": "$seats" }, 25] } },{ "$expr": { "$gt": [{ "$size": "$seats" }, 10] } }]})
+        if(!events) return res.status(404).send("No events found")
+        res.status(200).send(events)        
+    } catch(err) {
+        res.status(500).send("Error fetching seats")
+    }
+}
+
+// Get all seats of an Event
 const getEventSeats = async (req,res) => {
     const { eventId } = req.params
 
@@ -45,5 +57,6 @@ const getEventSeats = async (req,res) => {
 
 module.exports = {
     createEvent,
-    getEventSeats
+    getEventSeats,
+    getAllEvents
 }

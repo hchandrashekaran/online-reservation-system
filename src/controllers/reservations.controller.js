@@ -5,7 +5,7 @@ const Event = require('../models/Event')
 // Hold seats of an event upto a given time
 const holdSeat = async (req,res) => {
     const { eventId,seatId } = req.params
-    const userId = uuidv4()
+    const { userId } = req.body;
     const holdTime = 60 * 2000
     console.log(seatId)
 

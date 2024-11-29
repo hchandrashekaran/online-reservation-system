@@ -1,19 +1,23 @@
 const express = require("express")
 const mongoose = require("mongoose")
+const cors = require("cors")
 
 const bodyPraser = require('body-parser')
 const swaggerJsdoc = require('swagger-jsdoc')
 const swaggerUi = require('swagger-ui-express')
 const options = require('./swagger.js')
 
+const authRoute = require('./src/routes/auth.js')
 const Events = require('./src/routes/events.js')
 const Reservations = require('./src/routes/reservations.js')
 
 const app = express()
 // app.use(express.json())
+app.use(cors())
 
 app.use(bodyPraser.json())
 
+app.use("/auth",authRoute)
 app.use("/api/events",Events)
 app.use("/api/reservations",Reservations)
 
